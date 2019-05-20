@@ -1,0 +1,207 @@
+;============================================================
+; _    __                                                   |
+;| |  / /___ _____  ____  ______      ______ __   _____     |
+;| | / / __ `/ __ \/ __ \/ ___/ | /| / / __ `/ | / / _ \    |
+;| |/ / /_/ / /_/ / /_/ / /   | |/ |/ / /_/ /| |/ /  __/    |   
+;|___/\__,_/ .___/\____/_/    |__/|__/\__,_/ |___/\___/     |
+;         /_/                                               |
+;============================================================
+
+[colors]
+pink = #FF6AD5
+darkpink = #C774E8
+lightpurple = #AD8CFF
+bluesuede = #8795E8
+babyblue = #94D0FF
+
+;Material Colours:
+mred = #F44336
+mpink = #E91E63
+mpurple = #9C27B0
+mdeeppurple = #673AB7
+mindigo = #3F51B5
+mblue = #2196F3
+mlightlbue= #03A9F4
+mcyan = #00BCD4
+mteal = #009688
+mgreen = #4CAF50
+mlightgreen = #8BC34A
+mlime = #CDDC39
+myellow = #FFEB3B
+mamber = #FFC107
+morange = #FF9800
+mdeeporange = #FF5722
+mbrown = #795548
+mgrey = #9E9E9E
+mbluegrey = #607D8B
+mblack = #000000
+
+;================================================================
+; Top Bar
+;================================================================
+
+[bar/top]
+width = 100%
+height = 30
+background = #503a2263
+foreground = ${colors.pink}
+border-size = 0
+border-color = ${colors.pink}
+padding = 2
+module-margin = 1
+modules-left = spotify 
+modules-center = weather date
+modules-right =network brightness audio battery
+wm-restack = bspwm
+font-0 = Anonymous Pro:style=Bold:size=11
+font-1 = Weather Icons:size=12
+font-2 = Anonymice Nerd Font:size=16
+cursor-click = pointer
+
+;================================================================
+; Bottom Bar
+;================================================================
+
+[bar/bottom]
+bottom = true
+width = 100%
+height = 30
+background = #503a2263
+foreground = ${colors.pink}
+border-size = 0
+border-color = ${colors.pink}
+padding = 2
+module-margin = 1
+modules-left = bspwm
+modules-center = 
+modules-right = cpu memory
+wm-restack = bspwm
+font-0 = Anonymous Pro:style=Bold:size=11
+font-1 = Anonymice Nerd Font:size = 16
+cursor-click = pointer
+line-size = 4
+;================================================================
+; Modules
+;================================================================
+
+[module/bspwm]
+type = internal/bspwm
+enable-scroll = false
+;Workspace icons
+ws-icon-0 = I;
+ws-icon-1 = II;
+ws-icon-2 = III;
+ws-icon-3 = IV;阮
+ws-icon-4 = V;ﭮ
+ws-icon-default = 
+label-separator = 
+
+label-empty = %icon%
+label-empty-padding = 1
+label-empty-foreground = #70FF6AD5
+
+label-occupied =%icon%
+label-occupied-padding = 1
+label-occupied-underline = ${colors.darkpink}
+
+label-focused =%icon%
+label-focused-foreground = ${colors.babyblue}
+label-focused-padding = 1
+label-focused-underline = ${colors.babyblue}
+
+label-urgent =%icon%!
+label-urgent-background = ${colors.mdeeporange}
+label-urgent-padding = 1
+
+[module/cpu]
+type = internal/cpu
+format = <label>
+format-underline = ${colors.pink}
+label =  %percentage%%
+
+[module/memory]
+type = internal/memory
+format = <label>
+format-underline = ${colors.pink}
+label = ﰧ %percentage_used%%
+ 
+[module/weather]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/openweathermap-simple.sh
+interval = 600
+label-font = 1
+
+[module/date]
+type = internal/date
+internal = 1.0
+date = %d.%m.%Y%
+time = %H:%M%
+format = <label>
+label = %date% %time%
+date-alt = %d.%b.%Y%
+time-alt = %H:%M:%S%
+
+[module/battery]
+type = internal/battery
+
+full-at = 99
+battery = BAT0
+adapter = ADP1
+poll-interval = 5
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <label-full>
+
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full =  %percentage%%
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-5 = 
+animation-charging-framerate = 1000
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+
+[module/audio]
+type = internal/pulseaudio
+format-volume = <ramp-volume> <label-volume>
+use-ui-max = true
+label-volume = %percentage%%
+label-muted = 婢 %percentage%%
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
+ramp-volume-font = 2
+
+[module/network]
+type = internal/network
+interface = wlp2s0b1
+interval = 5
+label-connected = 直 %essid%
+label-disconnected = 睊
+click-left = networkmanager-dmenu
+
+[module/brightness]
+type = internal/backlight
+card = intel_backlight
+format =<label>
+label =盛 %percentage%%
+
+[module/spotify]
+type = custom/script
+exec = python $HOME/.config/polybar/scripts/spotify.py
+interval = 5

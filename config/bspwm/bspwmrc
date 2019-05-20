@@ -1,0 +1,27 @@
+#! /bin/sh
+
+sxhkd &
+compton -b &
+dunst &
+wal -a "0.7" -i $HOME/Pictures/desktop.png &
+$HOME/.config/polybar/launch.sh &
+$HOME/.config/polybar/scripts/spotify/launchlistener.sh &
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+bpsc config border_width 3
+bspc config window_gap 10
+bspc config split_ratio 0.5
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+bspc config focused_border_color \#94D0FF;
+bspc config normal_border_color \#C774E8;
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+#bspc rule -a Discord desktop='V'
+#bpsc rule -a Spotify dekstop='IV'
+bspc rule -a Firefox desktop='II'
+firefox &
